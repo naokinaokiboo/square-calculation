@@ -84,6 +84,25 @@ class SquareCalculation {
     this.#position = new Position(dimention);
     this.#formatter = new Formatter(dimention);
     this.#inputCursor = new InputCursor(this.#position);
+    this.#initMatrix(dimention);
+  }
+
+  #initMatrix(dimention) {
+    this.#matrix = [];
+    this.#matrix.push(["+", ...this.#generateRamdomNumbers(dimention)]);
+    const verticalNumbers = this.#generateRamdomNumbers(dimention);
+    for (const number of verticalNumbers) {
+      this.#matrix.push([number, ...Array(dimention).fill(null)]);
+    }
+  }
+
+  #generateRamdomNumbers(dimention) {
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    for (let i = numbers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+    }
+    return numbers.slice(0, dimention);
   }
 }
 
