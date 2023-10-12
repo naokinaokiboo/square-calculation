@@ -85,6 +85,9 @@ class SquareCalculation {
     this.#formatter = new Formatter(dimention);
     this.#inputCursor = new InputCursor(this.#position);
     this.#initMatrix(dimention);
+
+    const content = this.#formatter.generateFormatedContent(this.#matrix);
+    this.#output(content);
   }
 
   #initMatrix(dimention) {
@@ -103,6 +106,11 @@ class SquareCalculation {
       [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
     }
     return numbers.slice(0, dimention);
+  }
+
+  #output(content) {
+    this.#clearConsole();
+    process.stdout.write(content);
   }
 }
 
