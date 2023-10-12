@@ -1,5 +1,9 @@
 class InputCursor {
-  // TODO
+  #position;
+
+  constructor(position) {
+    this.#position = position;
+  }
 }
 
 export default InputCursor;
