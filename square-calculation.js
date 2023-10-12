@@ -11,7 +11,7 @@ class SquareCalculation {
   #matrix;
   #mistaks;
 
-  async startGame() {
+  async execute() {
     const menuId = await this.#showMenus();
     switch (menuId) {
       case MENU_ID_EASY_MODE:
