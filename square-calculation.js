@@ -1,24 +1,30 @@
 import enquirer from "enquirer";
+import Position from "./position.js";
+import Formatter from "./formatter.js";
+import InputCursor from "./input-cursor.js";
 
 const MENU_ID_EASY_MODE = 1;
 const MENU_ID_NORMAL_MODE = 2;
 const MENU_ID_QUIT = 3;
+
+const DIMENTION_OF_EASY_MODE = 5;
+const DIMENTION_OF_NORMAL_MODE = 10;
 
 class SquareCalculation {
   #position;
   #inputCursor;
   #formatter;
   #matrix;
-  #mistaks;
+  #mistakes;
 
   async execute() {
     const menuId = await this.#showMenus();
     switch (menuId) {
       case MENU_ID_EASY_MODE:
-        // TODO
+        this.#startNewGame(DIMENTION_OF_EASY_MODE);
         break;
       case MENU_ID_NORMAL_MODE:
-        // TODO
+        this.#startNewGame(DIMENTION_OF_NORMAL_MODE);
         break;
       case MENU_ID_QUIT:
         process.exit(0);
@@ -72,6 +78,12 @@ class SquareCalculation {
   #clearConsole() {
     console.clear();
     console.log("----------------- Square Calculations -----------------\n");
+  }
+
+  #startNewGame(dimention) {
+    this.#position = new Position(dimention);
+    this.#formatter = new Formatter(dimention);
+    this.#inputCursor = new InputCursor(this.#position);
   }
 }
 
