@@ -11,6 +11,7 @@ const DIMENTION_OF_EASY_MODE = 5;
 const DIMENTION_OF_NORMAL_MODE = 10;
 
 class SquareCalculation {
+  #dimention;
   #position;
   #inputCursor;
   #formatter;
@@ -81,36 +82,63 @@ class SquareCalculation {
   }
 
   #startNewGame(dimention) {
+    this.#dimention = dimention;
     this.#position = new Position(dimention);
     this.#formatter = new Formatter(dimention);
     this.#inputCursor = new InputCursor(this.#position);
-    this.#initMatrix(dimention);
+    this.#initMatrix();
 
     const content = this.#formatter.generateFormatedContent(this.#matrix);
     this.#output(content);
+    this.#inputCursor.startKeyInput(this.update.bind(this));
   }
 
-  #initMatrix(dimention) {
+  #initMatrix() {
     this.#matrix = [];
-    this.#matrix.push(["+", ...this.#generateRamdomNumbers(dimention)]);
-    const verticalNumbers = this.#generateRamdomNumbers(dimention);
+    this.#matrix.push(["+", ...this.#generateRamdomNumbers()]);
+    const verticalNumbers = this.#generateRamdomNumbers();
     for (const number of verticalNumbers) {
-      this.#matrix.push([number, ...Array(dimention).fill(null)]);
+      this.#matrix.push([number, ...Array(this.#dimention).fill(null)]);
     }
   }
 
-  #generateRamdomNumbers(dimention) {
+  #generateRamdomNumbers() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     for (let i = numbers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
     }
-    return numbers.slice(0, dimention);
+    return numbers.slice(0, this.#dimention);
   }
 
   #output(content) {
     this.#clearConsole();
     process.stdout.write(content);
+  }
+
+  update(numStr) {
+    const num = Number.parseInt(numStr);
+
+    if (isNaN(num)) {
+      // TODO
+      // メッセージ「正しい数値を入力してください。」を追加する
+      return;
+    } else {
+      this.#matrix[this.#position.row()][this.#position.column()] = num;
+      this.#position.update();
+    }
+
+    const content = this.#formatter.generateFormatedContent(this.#matrix);
+    this.#output(content);
+    this.#inputCursor.updateCursorPosition();
+
+    if (this.#hasGameEnded()) {
+      process.stdin.pause();
+    }
+  }
+
+  #hasGameEnded() {
+    return this.#position.row() > this.#dimention;
   }
 }
 
