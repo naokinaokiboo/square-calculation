@@ -72,7 +72,7 @@ class SquareCalculation {
       },
       footer() {
         const descriptions = menus.map((mode) => mode.description);
-        return "\n" + descriptions[this.index];
+        return "\n  " + descriptions[this.index];
       },
     };
 
