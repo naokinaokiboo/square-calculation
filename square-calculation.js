@@ -20,19 +20,24 @@ class SquareCalculation {
 
   async execute() {
     const menuId = await this.#showMenus();
-    switch (menuId) {
-      case MENU_ID_EASY_MODE:
-        this.#startNewGame(DIMENTION_OF_EASY_MODE);
-        break;
-      case MENU_ID_NORMAL_MODE:
-        this.#startNewGame(DIMENTION_OF_NORMAL_MODE);
-        break;
-      case MENU_ID_QUIT:
-        process.exit(0);
-        break;
-      default:
-        // TODO
-        break;
+    try {
+      switch (menuId) {
+        case MENU_ID_EASY_MODE:
+          this.#startNewGame(DIMENTION_OF_EASY_MODE);
+          break;
+        case MENU_ID_NORMAL_MODE:
+          this.#startNewGame(DIMENTION_OF_NORMAL_MODE);
+          break;
+        case MENU_ID_QUIT:
+          process.exit(0);
+          break;
+        default:
+          throw new Error("Unknown menu is selected.");
+          break;
+      }
+    } catch (err) {
+      console.error(err.message);
+      process.exit(1);
     }
   }
 
