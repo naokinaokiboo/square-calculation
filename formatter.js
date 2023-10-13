@@ -1,4 +1,11 @@
-import { getChangeBackColor, getResetBackColor } from "./ansi-escape.js";
+import {
+  changeBackColor,
+  changeTextColor,
+  changeTextBold,
+} from "./ansi-escape.js";
+
+const ANSI_BACK_COLOR_RED = "41";
+const ANSI_TEXT_COLOR_MAGENTA = "35";
 
 class Formatter {
   #dimention;
@@ -8,7 +15,10 @@ class Formatter {
   }
 
   static generateHeader() {
-    return "----------------- Square Calculations -----------------\n";
+    const headerText =
+      "----------------- Square Calculations -----------------\n";
+    const boldText = changeTextBold(headerText);
+    return changeTextColor(boldText, ANSI_TEXT_COLOR_MAGENTA);
   }
 
   generateContent(matrix, mistakes) {
@@ -30,15 +40,12 @@ class Formatter {
         const isMistake =
           mistakes && this.#isMistake(rowIndex, columnIndex, mistakes);
         content += " ";
-        if (isMistake) {
-          content += getChangeBackColor("41");
-        }
         const number = matrix[rowIndex][columnIndex];
-        const value = number === null ? "  " : number.toString().padStart(2);
-        content += value;
-        if (isMistake) {
-          content += getResetBackColor();
-        }
+        const numberText =
+          number === null ? "  " : number.toString().padStart(2);
+        content += isMistake
+          ? changeBackColor(numberText, ANSI_BACK_COLOR_RED)
+          : numberText;
         content += " |";
       }
       content += separator;

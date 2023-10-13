@@ -16,10 +16,18 @@ export const moveCursorToLeft = (x = 1) => {
   outAnsiEsc(`${x}D`);
 };
 
-export const getChangeBackColor = (color) => {
-  return getAnsiEsc(`${color}m`);
+export const changeBackColor = (text, color) => {
+  return getAnsiEsc(`${color}m`) + text + resetTextSetting();
 };
 
-export const getResetBackColor = () => {
+export const changeTextColor = (text, color) => {
+  return getAnsiEsc(`${color}m`) + text + resetTextSetting();
+};
+
+export const changeTextBold = (text) => {
+  return getAnsiEsc(`1m`) + text + resetTextSetting();
+};
+
+const resetTextSetting = () => {
   return getAnsiEsc("0m");
 };
