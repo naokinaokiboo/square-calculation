@@ -113,7 +113,7 @@ class SquareCalculation {
 
   #output(content) {
     this.#clearConsole();
-    process.stdout.write(content);
+    console.log(content);
   }
 
   update(numStr) {
@@ -134,11 +134,38 @@ class SquareCalculation {
 
     if (this.#hasGameEnded()) {
       process.stdin.pause();
+      process.stdin.removeAllListeners("data");
+      this.#checkAnswer();
+      const result =
+        this.#formatter.generateFormatedContent(this.#matrix, this.#mistakes) +
+        this.#formatter.generateFormattedResult(this.#mistakes);
+      this.#output(result);
+
+      console.log("\nPress any key to return to the menu.");
+      process.stdin.resume();
+      process.stdin.once("data", (key) => {
+        process.stdin.pause();
+        process.stdin.removeAllListeners("data");
+        process.stdin.setRawMode(false);
+        this.execute();
+      });
     }
   }
 
   #hasGameEnded() {
     return this.#position.row() > this.#dimention;
+  }
+
+  #checkAnswer() {
+    this.#mistakes = [];
+    for (let rowIndex = 1; rowIndex <= this.#dimention; rowIndex++) {
+      for (let columnIndex = 1; columnIndex <= this.#dimention; columnIndex++) {
+        const answer = this.#matrix[0][columnIndex] + this.#matrix[rowIndex][0];
+        if (this.#matrix[rowIndex][columnIndex] !== answer) {
+          this.#mistakes.push([rowIndex, columnIndex]);
+        }
+      }
+    }
   }
 }
 
