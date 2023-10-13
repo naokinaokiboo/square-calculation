@@ -113,7 +113,7 @@ class SquareCalculation {
     console.clear();
     console.log(Formatter.generateHeader());
     if (this.#matrix) {
-      const content = this.#formatter.generateContent(
+      const content = this.#formatter.generateFormattedContent(
         this.#matrix,
         this.#mistakes
       );
@@ -129,7 +129,6 @@ class SquareCalculation {
 
     this.#matrix[this.#position.row()][this.#position.column()] = num;
     this.#position.update();
-    this.#updateDisplay();
     this.#inputCursor.updateCursorPosition();
 
     if (this.#hasGameEnded()) {
@@ -159,7 +158,7 @@ class SquareCalculation {
   #waitForSomeKeyInput() {
     process.stdin.setRawMode(true);
     process.stdin.resume();
-    process.stdin.once("data", (key) => {
+    process.stdin.once("data", (_key) => {
       process.stdin.pause();
       process.stdin.removeAllListeners("data");
       this.#releaseAllResources();

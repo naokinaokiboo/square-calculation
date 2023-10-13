@@ -21,32 +21,31 @@ class Formatter {
     return changeTextColor(boldText, ANSI_TEXT_COLOR_MAGENTA);
   }
 
-  generateContent(matrix, mistakes) {
+  generateFormattedContent(matrix, mistakes) {
     let content = "";
     if (matrix) {
-      content += this.#generateFormattedContent(matrix, mistakes);
+      content += this.#generateSquareParts(matrix, mistakes);
     }
     if (mistakes) {
-      content += this.#generateFormattedResult(mistakes);
+      content += this.#generateResultParts(mistakes);
     }
     return content;
   }
 
-  #generateFormattedContent(matrix, mistakes = null) {
+  #generateSquareParts(matrix, mistakes = null) {
     const separator = `\n${"-----".repeat(matrix[0].length)}\n`;
     let content = "";
     for (let rowIndex = 0; rowIndex <= this.#dimention; rowIndex++) {
       for (let columnIndex = 0; columnIndex <= this.#dimention; columnIndex++) {
         const isMistake =
           mistakes && this.#isMistake(rowIndex, columnIndex, mistakes);
-        content += " ";
         const number = matrix[rowIndex][columnIndex];
         const numberText =
           number === null ? "  " : number.toString().padStart(2);
-        content += isMistake
+        const coloredNumberText = isMistake
           ? changeBackColor(numberText, ANSI_BACK_COLOR_RED)
           : numberText;
-        content += " |";
+        content += ` ${coloredNumberText} |`;
       }
       content += separator;
     }
@@ -62,7 +61,7 @@ class Formatter {
     return false;
   }
 
-  #generateFormattedResult(mistakes) {
+  #generateResultParts(mistakes) {
     const perfectScore = this.#dimention ** 2;
     const score = perfectScore - mistakes.length;
     let displayScore = "";
@@ -72,9 +71,10 @@ class Formatter {
       displayScore = `${score} / ${perfectScore}`;
     }
 
-    let resultMessage = `\n Your current score : ${displayScore}\n`;
-    resultMessage += "\n Press any key to return to the menu.";
-    return resultMessage;
+    return (
+      `\n Your current score : ${displayScore}\n` +
+      "\n Press any key to return to the menu."
+    );
   }
 }
 

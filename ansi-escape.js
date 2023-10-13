@@ -1,6 +1,6 @@
 const ANSI_ESC = "\x1b[";
 
-const outAnsiEsc = (code) => {
+const outputAnsiEsc = (code) => {
   process.stdout.write(`${ANSI_ESC}${code}`);
 };
 
@@ -9,11 +9,11 @@ const getAnsiEsc = (code) => {
 };
 
 export const moveCursor = (absoluteY, absoluteX) => {
-  outAnsiEsc(`${absoluteY};${absoluteX}H`);
+  outputAnsiEsc(`${absoluteY};${absoluteX}H`);
 };
 
 export const moveCursorToLeft = (x = 1) => {
-  outAnsiEsc(`${x}D`);
+  outputAnsiEsc(`${x}D`);
 };
 
 export const changeBackColor = (text, color) => {
