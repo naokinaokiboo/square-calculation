@@ -53,6 +53,11 @@ class InputCursor {
     });
   }
 
+  stopKeyInput = () => {
+    process.stdin.pause();
+    process.stdin.removeAllListeners("data");
+  };
+
   updateCursorPosition = () => {
     const x = INITIAL_CURSOR_POSITION_X + 5 * (this.#position.column() - 1);
     const y = INITIAL_CURSOR_POSITION_Y + 2 * (this.#position.row() - 1);

@@ -14,15 +14,15 @@ class Formatter {
   generateContent(matrix, mistakes) {
     let content = "";
     if (matrix) {
-      content += this.generateFormattedContent(matrix, mistakes);
+      content += this.#generateFormattedContent(matrix, mistakes);
     }
     if (mistakes) {
-      content += this.generateFormattedResult(mistakes);
+      content += this.#generateFormattedResult(mistakes);
     }
     return content;
   }
 
-  generateFormattedContent(matrix, mistakes = null) {
+  #generateFormattedContent(matrix, mistakes = null) {
     const separator = `\n${"-----".repeat(matrix[0].length)}\n`;
     let content = "";
     for (let rowIndex = 0; rowIndex <= this.#dimention; rowIndex++) {
@@ -55,7 +55,7 @@ class Formatter {
     return false;
   }
 
-  generateFormattedResult(mistakes) {
+  #generateFormattedResult(mistakes) {
     const perfectScore = this.#dimention ** 2;
     const score = perfectScore - mistakes.length;
     let displayScore = "";

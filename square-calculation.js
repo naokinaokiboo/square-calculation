@@ -118,33 +118,20 @@ class SquareCalculation {
 
   update(numStr) {
     const num = Number.parseInt(numStr);
-
     if (isNaN(num)) {
-      // TODO
-      // メッセージ「正しい数値を入力してください。」を追加する
       return;
-    } else {
-      this.#matrix[this.#position.row()][this.#position.column()] = num;
-      this.#position.update();
     }
 
+    this.#matrix[this.#position.row()][this.#position.column()] = num;
+    this.#position.update();
     this.#updateDisplay();
     this.#inputCursor.updateCursorPosition();
 
     if (this.#hasGameEnded()) {
-      process.stdin.pause();
-      process.stdin.removeAllListeners("data");
+      this.#inputCursor.stopKeyInput();
       this.#checkAnswer();
       this.#updateDisplay();
-
-      process.stdin.resume();
-      process.stdin.once("data", (key) => {
-        process.stdin.pause();
-        process.stdin.removeAllListeners("data");
-        process.stdin.setRawMode(false);
-        this.#releaseAllResources();
-        this.execute();
-      });
+      this.#waitForSomeKeyInput();
     }
   }
 
@@ -162,6 +149,18 @@ class SquareCalculation {
         }
       }
     }
+  }
+
+  #waitForSomeKeyInput() {
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.once("data", (key) => {
+      process.stdin.pause();
+      process.stdin.removeAllListeners("data");
+      this.#releaseAllResources();
+      console.log("abcdefg");
+      this.execute();
+    });
   }
 
   #releaseAllResources() {
