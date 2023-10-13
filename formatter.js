@@ -7,7 +7,22 @@ class Formatter {
     this.#dimention = dimention;
   }
 
-  generateFormatedContent(matrix, mistakes = null) {
+  static generateHeader() {
+    return "----------------- Square Calculations -----------------\n";
+  }
+
+  generateContent(matrix, mistakes) {
+    let content = "";
+    if (matrix) {
+      content += this.generateFormattedContent(matrix, mistakes);
+    }
+    if (mistakes) {
+      content += this.generateFormattedResult(mistakes);
+    }
+    return content;
+  }
+
+  generateFormattedContent(matrix, mistakes = null) {
     const separator = `\n${"-----".repeat(matrix[0].length)}\n`;
     let content = "";
     for (let rowIndex = 0; rowIndex <= this.#dimention; rowIndex++) {
@@ -49,7 +64,10 @@ class Formatter {
     } else {
       displayScore = `${score} / ${perfectScore}`;
     }
-    return `\n Your current score : ${displayScore}`;
+
+    let resultMessage = `\n Your current score : ${displayScore}\n`;
+    resultMessage += "\n Press any key to return to the menu.";
+    return resultMessage;
   }
 }
 

@@ -71,14 +71,9 @@ class SquareCalculation {
       },
     };
 
-    this.#clearConsole();
+    this.#updateDisplay();
     const answer = await enquirer.prompt(question);
     return answer.value;
-  }
-
-  #clearConsole() {
-    console.clear();
-    console.log("----------------- Square Calculations -----------------\n");
   }
 
   #startNewGame(dimention) {
@@ -87,9 +82,7 @@ class SquareCalculation {
     this.#formatter = new Formatter(dimention);
     this.#inputCursor = new InputCursor(this.#position);
     this.#initMatrix();
-
-    const content = this.#formatter.generateFormatedContent(this.#matrix);
-    this.#output(content);
+    this.#updateDisplay();
     this.#inputCursor.startKeyInput(this.update.bind(this));
   }
 
@@ -111,9 +104,16 @@ class SquareCalculation {
     return numbers.slice(0, this.#dimention);
   }
 
-  #output(content) {
-    this.#clearConsole();
-    console.log(content);
+  #updateDisplay() {
+    console.clear();
+    console.log(Formatter.generateHeader());
+    if (this.#matrix) {
+      const content = this.#formatter.generateContent(
+        this.#matrix,
+        this.#mistakes
+      );
+      console.log(content);
+    }
   }
 
   update(numStr) {
@@ -128,25 +128,21 @@ class SquareCalculation {
       this.#position.update();
     }
 
-    const content = this.#formatter.generateFormatedContent(this.#matrix);
-    this.#output(content);
+    this.#updateDisplay();
     this.#inputCursor.updateCursorPosition();
 
     if (this.#hasGameEnded()) {
       process.stdin.pause();
       process.stdin.removeAllListeners("data");
       this.#checkAnswer();
-      const result =
-        this.#formatter.generateFormatedContent(this.#matrix, this.#mistakes) +
-        this.#formatter.generateFormattedResult(this.#mistakes);
-      this.#output(result);
+      this.#updateDisplay();
 
-      console.log("\nPress any key to return to the menu.");
       process.stdin.resume();
       process.stdin.once("data", (key) => {
         process.stdin.pause();
         process.stdin.removeAllListeners("data");
         process.stdin.setRawMode(false);
+        this.#releaseAllResources();
         this.execute();
       });
     }
@@ -166,6 +162,15 @@ class SquareCalculation {
         }
       }
     }
+  }
+
+  #releaseAllResources() {
+    this.#dimention = null;
+    this.#position = null;
+    this.#inputCursor = null;
+    this.#formatter = null;
+    this.#matrix = null;
+    this.#mistakes = null;
   }
 }
 
