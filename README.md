@@ -17,13 +17,14 @@ $ square-game
 1. Select modes
 
 ![SCR-20231018-neap](https://github.com/naokinaokiboo/square-calculation/assets/131861805/d3884a0d-e8bb-4c2d-b3c5-3a206647e839)
-  - Easy Mode : Start the game with 25 squares.
 
-  ![SCR-20231018-nfoz](https://github.com/naokinaokiboo/square-calculation/assets/131861805/ab48ea61-ed17-4c28-8006-f878464899a0)
-  
-  - Normal Mode : Start the game with 100 squares.
- 
-  ![SCR-20231018-ngdu](https://github.com/naokinaokiboo/square-calculation/assets/131861805/cc21e5a8-fc53-4ed1-97b4-5275f14753a8)
+- Easy Mode : Start the game with 25 squares.
+
+![SCR-20231018-nfoz](https://github.com/naokinaokiboo/square-calculation/assets/131861805/ab48ea61-ed17-4c28-8006-f878464899a0)
+
+- Normal Mode : Start the game with 100 squares.
+
+![SCR-20231018-ngdu](https://github.com/naokinaokiboo/square-calculation/assets/131861805/cc21e5a8-fc53-4ed1-97b4-5275f14753a8)
 
 2. Calculate and input the numbers.
 
