@@ -40,3 +40,11 @@ When all cells are filled, the scoring results will be displayed.
 Incorrect areas will be highlighted in red.
 
 ![SCR-20231018-nuvb](https://github.com/naokinaokiboo/square-calculation/assets/131861805/310eab93-ff14-4a6f-af3b-36d4fede33f0)
+
+## Note
+
+To play this game, you need a terminal with a display size large enough to show the grid.  
+If your terminal's size is insufficient, you will see a message like the following.  
+Please enlarge the terminal size and run it again.
+
+![SCR-20231018-okvy](https://github.com/naokinaokiboo/square-calculation/assets/131861805/9b90f881-bca6-4d8b-958d-00cb9b7f4373)
