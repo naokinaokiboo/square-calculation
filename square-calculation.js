@@ -77,7 +77,13 @@ class SquareCalculation {
     };
 
     this.#updateDisplay();
-    const answer = await enquirer.prompt(question);
+    let answer;
+    try {
+      answer = await enquirer.prompt(question);
+    } catch (err) {
+      console.error("An unexpected error has occurred.");
+      process.exit(1);
+    }
     return answer.value;
   }
 
