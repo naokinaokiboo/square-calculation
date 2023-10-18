@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import SquareCalculation from "./square-calculation.js";
 
 const REQUIRED_TERMINAL_HEIGHT = 26;
