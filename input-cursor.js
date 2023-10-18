@@ -53,24 +53,26 @@ class InputCursor {
     });
   }
 
-  stopKeyInput = () => {
+  stopKeyInput() {
     process.stdin.pause();
     process.stdin.removeAllListeners("data");
-  };
+  }
 
-  updateCursorPosition = () => {
+  updateCursorPosition() {
     const x = INITIAL_CURSOR_POSITION_X + 5 * (this.#position.column() - 1);
     const y = INITIAL_CURSOR_POSITION_Y + 2 * (this.#position.row() - 1);
     moveCursor(y, x);
-  };
+  }
 
-  #moveToLeftmostOfBuffer = (buffer) => {
+  #moveToLeftmostOfBuffer(buffer) {
     if (buffer.length > 1) {
       moveCursorToLeft(buffer.length - 1);
     }
-  };
+  }
 
-  #deleteEndOfBuffer = (buffer) => buffer.slice(0, -1);
+  #deleteEndOfBuffer(buffer) {
+    return buffer.slice(0, -1);
+  }
 }
 
 export default InputCursor;
