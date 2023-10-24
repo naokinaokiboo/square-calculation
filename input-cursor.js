@@ -44,7 +44,7 @@ class InputCursor {
         }
         process.stdout.write(buffer);
         moveCursorToLeft(1);
-      } else if (keyCode === CODE_DEL || keyCode == CODE_BS) {
+      } else if (keyCode === CODE_DEL || keyCode === CODE_BS) {
         this.#moveToLeftmostOfBuffer(buffer);
         buffer = this.#deleteEndOfBuffer(buffer);
         process.stdout.write(" " + buffer);
