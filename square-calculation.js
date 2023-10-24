@@ -168,7 +168,6 @@ class SquareCalculation {
       process.stdin.pause();
       process.stdin.removeAllListeners("data");
       this.#releaseAllResources();
-      console.log("abcdefg");
       this.execute();
     });
   }
