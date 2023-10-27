@@ -28,13 +28,13 @@ class SquareCalculation {
     this.#initMatrix();
     this.#updateDisplay();
     this.#inputCursor.startKeyInput(
-      this.update.bind(this),
+      this.updateNumber.bind(this),
       this.getCurrentNumber.bind(this),
-      this.hasGameEnded.bind(this)
+      this.diplayResult.bind(this)
     );
   }
 
-  update(numStr) {
+  updateNumber(numStr) {
     this.#matrix[this.#position.row()][this.#position.column()] =
       numStr === "" ? null : Number.parseInt(numStr);
   }
@@ -43,8 +43,8 @@ class SquareCalculation {
     return this.#matrix[this.#position.row()][this.#position.column()];
   }
 
-  hasGameEnded() {
-    if (!this.#allCellsFilled()) {
+  diplayResult() {
+    if (this.#hasUnfilledCells()) {
       return;
     }
     this.#inputCursor.stopKeyInput();
@@ -83,13 +83,13 @@ class SquareCalculation {
     }
   }
 
-  #allCellsFilled() {
+  #hasUnfilledCells() {
     for (let rowIndex = 1; rowIndex <= this.#dimention; rowIndex++) {
       if (this.#matrix[rowIndex].includes(null)) {
-        return false;
+        return true;
       }
     }
-    return true;
+    return false;
   }
 
   #checkAnswer() {

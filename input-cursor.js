@@ -26,7 +26,11 @@ class InputCursor {
     this.#buffer = "";
   }
 
-  startKeyInput(updateCallback, getBufferCallback, endCallback) {
+  startKeyInput(
+    updateNumberCallback,
+    getBufferCallback,
+    displayResultCallback
+  ) {
     this.#updateCursorPosition(this.#position);
 
     process.stdin.setEncoding("utf8");
@@ -39,8 +43,8 @@ class InputCursor {
       if (keyCode === CODE_ETX) {
         process.exit(0);
       } else if (keyCode === CODE_EOT) {
-        updateCallback(this.#buffer);
-        endCallback();
+        updateNumberCallback(this.#buffer);
+        displayResultCallback();
       } else if (CODE_0 <= keyCode && keyCode <= CODE_9) {
         if (this.#buffer.length >= MAX_INPUT_DIGITS) {
           return;
@@ -57,23 +61,23 @@ class InputCursor {
         process.stdout.write(" " + this.#buffer);
         moveCursorToLeft(1);
       } else if (keyCode === CODE_CR) {
-        updateCallback(this.#buffer);
+        updateNumberCallback(this.#buffer);
         this.#moveCursorNext();
         this.#syncBuffer(getBufferCallback());
       } else if (key === ANSI_ESC_UP) {
-        updateCallback(this.#buffer);
+        updateNumberCallback(this.#buffer);
         this.#moveCursorUp();
         this.#syncBuffer(getBufferCallback());
       } else if (key === ANSI_ESC_DOWN) {
-        updateCallback(this.#buffer);
+        updateNumberCallback(this.#buffer);
         this.#moveCursorDown();
         this.#syncBuffer(getBufferCallback());
       } else if (key === ANSI_ESC_RIGHT) {
-        updateCallback(this.#buffer);
+        updateNumberCallback(this.#buffer);
         this.#moveCursorRight();
         this.#syncBuffer(getBufferCallback());
       } else if (key === ANSI_ESC_LEFT) {
-        updateCallback(this.#buffer);
+        updateNumberCallback(this.#buffer);
         this.#moveCursorLeft();
         this.#syncBuffer(getBufferCallback());
       }
