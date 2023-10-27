@@ -61,6 +61,9 @@ class InputCursor {
         process.stdout.write(" " + this.#buffer);
         moveCursorToLeft(1);
       } else if (keyCode === CODE_CR) {
+        if (this.#buffer === "") {
+          return;
+        }
         updateNumberCallback(this.#buffer);
         this.#moveCursorNext();
         this.#syncBuffer(getBufferCallback());
