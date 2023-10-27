@@ -8,7 +8,7 @@ export const MENU_ID_EASY_MODE = 1;
 export const MENU_ID_NORMAL_MODE = 2;
 const MENU_ID_QUIT = 3;
 
-const REQUIRED_TERMINAL_HEIGHT = 32;
+const REQUIRED_TERMINAL_HEIGHT = 33;
 const REQUIRED_TERMINAL_WIDTH = 60;
 
 const hasSufficientTerminalSize = (terminalHeight, terminalWidth) => {
