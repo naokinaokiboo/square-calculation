@@ -28,15 +28,23 @@ $ square-game
 
 2. Calculate and input the numbers.
 
-Input each cell's number, and press Enter. The cursor will then move to the next cell.  
+Input each cell's number, and press `Enter` or `Arrows` key.  
+The cursor will then move to the next cell or specified direction.  
 You can only input half-width digits.  
-To delete a number while entering, use the Backspace or Delete key.
+To delete a number while entering, use the `Backspace` or `Delete` key.
 
 [![Image from Gyazo](https://i.gyazo.com/29cfa8567f9850a51c3a26f49d73d29a.gif)](https://gyazo.com/29cfa8567f9850a51c3a26f49d73d29a)
 
-3. The scoring results will be displayed.
+3. If you want to correct a number.
 
-When all cells are filled, the scoring results will be displayed.  
+Use the `Arrow` keys to move to the cell you want to correct.  
+Use the `Backspace` or `Delete` key to erase the number and re-enter it.
+
+[![Image from Gyazo](https://i.gyazo.com/fad45743f5a4ab9d4c3cfe8a1bb84249.gif)](https://gyazo.com/fad45743f5a4ab9d4c3cfe8a1bb84249)
+
+4. Display scoring results.
+
+After all cells have been filled, press `Ctrl+D` to display the scoring results.  
 Incorrect areas will be highlighted in red.
 
 ![SCR-20231018-nuvb](https://github.com/naokinaokiboo/square-calculation/assets/131861805/310eab93-ff14-4a6f-af3b-36d4fede33f0)
