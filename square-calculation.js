@@ -27,25 +27,30 @@ class SquareCalculation {
     this.#inputCursor = new InputCursor(this.#position);
     this.#initMatrix();
     this.#updateDisplay();
-    this.#inputCursor.startKeyInput(this.update.bind(this));
+    this.#inputCursor.startKeyInput(
+      this.update.bind(this),
+      this.getCurrentNumber.bind(this),
+      this.hasGameEnded.bind(this)
+    );
   }
 
   update(numStr) {
-    const num = Number.parseInt(numStr);
-    if (isNaN(num)) {
+    this.#matrix[this.#position.row()][this.#position.column()] =
+      numStr === "" ? null : Number.parseInt(numStr);
+  }
+
+  getCurrentNumber() {
+    return this.#matrix[this.#position.row()][this.#position.column()];
+  }
+
+  hasGameEnded() {
+    if (!this.#allCellsFilled()) {
       return;
     }
-
-    this.#matrix[this.#position.row()][this.#position.column()] = num;
-    this.#position.update();
-    this.#inputCursor.updateCursorPosition();
-
-    if (this.#hasGameEnded()) {
-      this.#inputCursor.stopKeyInput();
-      this.#checkAnswer();
-      this.#updateDisplay();
-      this.#waitForSomeKeyInput();
-    }
+    this.#inputCursor.stopKeyInput();
+    this.#checkAnswer();
+    this.#updateDisplay();
+    this.#waitForSomeKeyInput();
   }
 
   #initMatrix() {
@@ -78,8 +83,13 @@ class SquareCalculation {
     }
   }
 
-  #hasGameEnded() {
-    return this.#position.row() > this.#dimention;
+  #allCellsFilled() {
+    for (let rowIndex = 1; rowIndex <= this.#dimention; rowIndex++) {
+      if (this.#matrix[rowIndex].includes(null)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   #checkAnswer() {

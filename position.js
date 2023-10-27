@@ -9,7 +9,19 @@ class Position {
     this.#currentColumn = 1;
   }
 
-  update() {
+  row() {
+    return this.#currentRow;
+  }
+
+  column() {
+    return this.#currentColumn;
+  }
+
+  moveNext() {
+    if (this.#isBottomRow() && this.#isRightColumn()) {
+      return;
+    }
+
     this.#currentColumn++;
     if (this.#currentColumn > this.#dimention) {
       this.#currentColumn = 1;
@@ -17,12 +29,48 @@ class Position {
     }
   }
 
-  row() {
-    return this.#currentRow;
+  moveUp() {
+    if (this.#isTopRow()) {
+      return;
+    }
+    this.#currentRow--;
   }
 
-  column() {
-    return this.#currentColumn;
+  moveDown() {
+    if (this.#isBottomRow()) {
+      return;
+    }
+    this.#currentRow++;
+  }
+
+  moveRight() {
+    if (this.#isRightColumn()) {
+      return;
+    }
+    this.#currentColumn++;
+  }
+
+  moveLeft() {
+    if (this.#isLeftColumn()) {
+      return;
+    }
+    this.#currentColumn--;
+  }
+
+  #isTopRow() {
+    return this.#currentRow === 1;
+  }
+
+  #isBottomRow() {
+    return this.#currentRow === this.#dimention;
+  }
+
+  #isRightColumn() {
+    return this.#currentColumn === this.#dimention;
+  }
+
+  #isLeftColumn() {
+    return this.#currentColumn === 1;
   }
 }
 
