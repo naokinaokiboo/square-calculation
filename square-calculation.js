@@ -1,4 +1,4 @@
-import { MENU_ID_EASY_MODE, MENU_ID_NORMAL_MODE, main } from "./index.js";
+import { MENU_ID_EASY_MODE, MENU_ID_NORMAL_MODE, mainMenu } from "./index.js";
 import Position from "./position.js";
 import Formatter from "./formatter.js";
 import InputCursor from "./input-cursor.js";
@@ -110,7 +110,7 @@ class SquareCalculation {
     process.stdin.once("data", (_key) => {
       process.stdin.pause();
       process.stdin.removeAllListeners("data");
-      main();
+      mainMenu();
     });
   }
 }
