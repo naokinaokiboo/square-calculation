@@ -93,7 +93,6 @@ export const main = async () => {
         break;
       default:
         throw new Error("Unknown menu is selected.");
-        break;
     }
   } catch (err) {
     if (err instanceof Error) {

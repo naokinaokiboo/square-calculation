@@ -97,7 +97,7 @@ class SquareCalculation {
   #waitForSomeKeyInput() {
     process.stdin.setRawMode(true);
     process.stdin.resume();
-    process.stdin.once("data", (_key) => {
+    process.stdin.once("data", () => {
       process.stdin.pause();
       process.stdin.removeAllListeners("data");
       main();
