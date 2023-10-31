@@ -8,8 +8,8 @@ export const MENU_ID_EASY_MODE = 1;
 export const MENU_ID_NORMAL_MODE = 2;
 const MENU_ID_QUIT = 3;
 
-const REQUIRED_TERMINAL_HEIGHT = 26;
-const REQUIRED_TERMINAL_WIDTH = 55;
+const REQUIRED_TERMINAL_HEIGHT = 33;
+const REQUIRED_TERMINAL_WIDTH = 60;
 
 const hasSufficientTerminalSize = (terminalHeight, terminalWidth) => {
   return (
@@ -73,7 +73,7 @@ const showMenus = async () => {
   }
 };
 
-export const main = async () => {
+export const mainMenu = async () => {
   const terminalHeight = process.stdout.rows;
   const terminalWidth = process.stdout.columns;
   if (hasSufficientTerminalSize(terminalHeight, terminalWidth)) {
@@ -104,5 +104,5 @@ export const main = async () => {
 };
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main();
+  mainMenu();
 }

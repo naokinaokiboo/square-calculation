@@ -1,4 +1,4 @@
-import { MENU_ID_EASY_MODE, MENU_ID_NORMAL_MODE, main } from "./index.js";
+import { MENU_ID_EASY_MODE, MENU_ID_NORMAL_MODE, mainMenu } from "./index.js";
 import Position from "./position.js";
 import Formatter from "./formatter.js";
 import InputCursor from "./input-cursor.js";
@@ -27,25 +27,30 @@ class SquareCalculation {
     this.#inputCursor = new InputCursor(this.#position);
     this.#initMatrix();
     this.#updateDisplay();
-    this.#inputCursor.startKeyInput(this.update.bind(this));
+    this.#inputCursor.startKeyInput(
+      this.updateNumber.bind(this),
+      this.getCurrentNumber.bind(this),
+      this.diplayResult.bind(this)
+    );
   }
 
-  update(numStr) {
-    const num = Number.parseInt(numStr);
-    if (isNaN(num)) {
+  updateNumber(numStr) {
+    this.#matrix[this.#position.row()][this.#position.column()] =
+      numStr === "" ? null : Number.parseInt(numStr);
+  }
+
+  getCurrentNumber() {
+    return this.#matrix[this.#position.row()][this.#position.column()];
+  }
+
+  diplayResult() {
+    if (this.#hasUnfilledCells()) {
       return;
     }
-
-    this.#matrix[this.#position.row()][this.#position.column()] = num;
-    this.#position.update();
-    this.#inputCursor.updateCursorPosition();
-
-    if (this.#hasGameEnded()) {
-      this.#inputCursor.stopKeyInput();
-      this.#checkAnswer();
-      this.#updateDisplay();
-      this.#waitForSomeKeyInput();
-    }
+    this.#inputCursor.stopKeyInput();
+    this.#checkAnswer();
+    this.#updateDisplay();
+    this.#waitForSomeKeyInput();
   }
 
   #initMatrix() {
@@ -78,8 +83,13 @@ class SquareCalculation {
     }
   }
 
-  #hasGameEnded() {
-    return this.#position.row() > this.#dimention;
+  #hasUnfilledCells() {
+    for (let rowIndex = 1; rowIndex <= this.#dimention; rowIndex++) {
+      if (this.#matrix[rowIndex].includes(null)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   #checkAnswer() {
@@ -100,7 +110,7 @@ class SquareCalculation {
     process.stdin.once("data", () => {
       process.stdin.pause();
       process.stdin.removeAllListeners("data");
-      main();
+      mainMenu();
     });
   }
 }
