@@ -1,6 +1,6 @@
 {
   "name": "square-calculation",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "You can play a 100-square-calculation game on the console.",
   "main": "index.js",
   "bin": {
