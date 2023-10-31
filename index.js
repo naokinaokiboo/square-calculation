@@ -103,6 +103,4 @@ export const mainMenu = async () => {
   }
 };
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  mainMenu();
-}
+mainMenu();
