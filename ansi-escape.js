@@ -1,4 +1,4 @@
-const ANSI_ESC = "\x1b[";
+export const ANSI_ESC = "\x1b[";
 
 const outputAnsiEsc = (code) => {
   process.stdout.write(`${ANSI_ESC}${code}`);
